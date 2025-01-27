@@ -1,6 +1,5 @@
 const Hash = await import("npm:ipfs-only-hash@4.0.0");
 const assetId = args[0];
-
 const url = `https://park.matrix-net.tech/park/v1/parking-spot?query=id:${assetId}`;
 const response = await Functions.makeHttpRequest({
   url: url,
@@ -39,3 +38,7 @@ const metadata = {
 const metadataString = JSON.stringify(metadata);
 const ipfsCid = await Hash.of(metadataString);
 return Functions.encodeString(`ipfs://${ipfsCid}`);
+
+
+
+

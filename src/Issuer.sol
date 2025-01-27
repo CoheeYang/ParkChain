@@ -42,9 +42,9 @@ contract Issuer is FunctionsClient, OwnerIsCreator {
 
     function issue(
         address to,
-        string[] memory args,///用户id
+        string[] memory args, ///用户id
         uint256 amount, ///发行数量 1
-        uint64 subscriptionId,///订阅id
+        uint64 subscriptionId, ///订阅id
         uint32 gasLimit,
         bytes32 donID
     ) external onlyOwner returns (bytes32 requestId) {

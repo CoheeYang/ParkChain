@@ -5,6 +5,7 @@ import { ParkLotToken } from "../src/ParkLotToken.sol";
 import { Issuer } from "../src/Issuer.sol";
 import { MockFunctionRouters } from "../src/mocks/MockFunctionRouters.sol";
 
+
 contract NetWorkConfig is Script {
     uint256 public constant ETH_SEPOLIA_CHAIN_ID = 11155111;
     uint256 public constant LOCAL_CHAIN_ID = 31337;

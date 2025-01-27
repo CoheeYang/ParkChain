@@ -12,13 +12,19 @@ contract Deployment is NetWorkConfig {
     ParkLotToken public parkLotToken;
     NetWorkParams public networkParams;
 
-    function run(address deployer) public returns (MockFunctionRouters, ParkLotToken, Issuer) {
+    function run() public returns (MockFunctionRouters, ParkLotToken, Issuer) {
         networkParams = NetWorkMapping[block.chainid];
-
-        vm.startBroadcast(deployer);
+        vm.startBroadcast();
         parkLotToken = new ParkLotToken("");
         issuer = new Issuer(address(parkLotToken), networkParams.functionRouter, sourceCode);
-        parkLotToken.setIssuer(address(issuer));
+
+        if (block.chainid == LOCAL_CHAIN_ID) {
+            parkLotToken.setIssuer(address(issuer));
+        }
+        // else {
+        //     ParkLotToken pl = ParkLotToken(address(parkLotToken));
+        //     pl.setIssuer(address(issuer));
+        // } not a valid way to call the function
         vm.stopBroadcast();
 
         console.log("current Chain ID: ", block.chainid);

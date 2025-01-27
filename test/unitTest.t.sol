@@ -24,7 +24,7 @@ contract unitTest is Test {
     function setUp() public {
         (user, privateKey) = makeAddrAndKey("user");
         deployment = new Deployment();
-        (mockFunctionRouters, parkLotToken, issuer) = deployment.run(user);
+        (mockFunctionRouters, parkLotToken, issuer) = deployment.run();
         (subscriptionId, gasLimit, donID, ) = deployment.networkParams();
     }
 
@@ -40,7 +40,7 @@ contract unitTest is Test {
      *          after the issue function generate the requestId.
      */
     function test_issue_fulfill_local() public {
-        vm.prank(user);
+        vm.prank(msg.sender); ///msg.sender is the default sender in the test environment
         bytes32 requestId = issuer.issue(user, args, amount, subscriptionId, gasLimit, donID);
         mockFunctionRouters.handleOracleFulfillment(address(issuer), requestId, abi.encodePacked(response), hex"");
         assertEq(parkLotToken.uri(0), response);
